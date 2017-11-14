@@ -13,6 +13,12 @@
         android:layout_height="wrap_content"
         android:text = "TESTING HandRangeActivity"/>
 
+    <TextView
+        android:id="@+id/testHandRangeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "TEST"/>
+
     <Button
         android:id="@+id/back_button"
         android:layout_width="fill_parent"
