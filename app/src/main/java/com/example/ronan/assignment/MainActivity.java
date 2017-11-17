@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Button calculateShoveButton = (Button)findViewById(R.id.calulateShoveButton);
         //Button practiceButton = (Button)findViewById(R.id.practiceButton);
         Button FindTournamentsButton = (Button)findViewById(R.id.FindTournamentsButton);
-        //Button myTouramentsButton = (Button)findViewById(R.id.myTouramentsButton);
+        Button myTouramentsButton = (Button)findViewById(R.id.myTouramentsButton);
 
         //OnClickListeners and intents
         calculateShoveButton.setOnClickListener(new View.OnClickListener(){
@@ -42,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FindTournamentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        myTouramentsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MyTournamentsActivity.class);
                 startActivity(intent);
             }
         });

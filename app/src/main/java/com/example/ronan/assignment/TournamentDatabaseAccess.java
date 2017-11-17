@@ -22,6 +22,7 @@ public class TournamentDatabaseAccess {
     private static final String KEY_TASK_EVENT = "Event";
     private static final String KEY_TASK_COUNTRY = "COUNTRY";
     private static final String KEY_TASK_STARTS = "STARTS";
+    private static final String KEY_TASK_ENDS = "ENDS";
     private static final String KEY_TASK_BUYIN = "BUYIN";
     private static final String KEY_TASK_FEE = "FEE";
 
@@ -38,8 +39,9 @@ public class TournamentDatabaseAccess {
             KEY_TASK_EVENT + " text NOT NULL," +
             KEY_TASK_COUNTRY + " text, " +
             KEY_TASK_STARTS + " text NOT NULL, " +
+            KEY_TASK_ENDS + " text , " +
             KEY_TASK_BUYIN + " text, " +
-            KEY_TASK_FEE + " text;";
+            KEY_TASK_FEE + " text);";
 
     private final Context context;
     private TournamentDatabaseAccess.DatabaseHelper DBHelper;
@@ -101,11 +103,16 @@ public class TournamentDatabaseAccess {
     }
 
     // an example of a database insert.  This is for a particular database that has three columns
-    public long insertEvent(String event, String country, String starts,String buyin, String fee)
+    public long insertEvent(String event, String country, String starts,String date_ends,String buyin, String fee)
     {
         ContentValues initialValues = new ContentValues();
         // put your own column/ values onto the Context Values object
-        //initialValues.put(KEY_TASK_SMALLBLIND, smallBlind);
+        initialValues.put(KEY_TASK_EVENT, event);
+        initialValues.put(KEY_TASK_COUNTRY, country);
+        initialValues.put(KEY_TASK_STARTS, starts);
+        initialValues.put(KEY_TASK_ENDS, date_ends);
+        initialValues.put(KEY_TASK_BUYIN, buyin);
+        initialValues.put(KEY_TASK_FEE, fee);
 
 
 
@@ -120,12 +127,13 @@ public class TournamentDatabaseAccess {
     // an example of a custom method to query a database.
 
 
-    public Cursor getAllTasks()
+    public Cursor getAllEvents()
     {
         Cursor mCursor =  db.query(DATABASE_TABLE, new String[]{KEY_ROWID,
                 KEY_TASK_EVENT,
                 KEY_TASK_COUNTRY,
                 KEY_TASK_STARTS,
+                KEY_TASK_ENDS,
                 KEY_TASK_BUYIN,
                 KEY_TASK_FEE},null,null,null,null,null);
 

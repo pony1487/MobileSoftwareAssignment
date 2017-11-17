@@ -25,8 +25,6 @@ public class Event
     }
 
     //getters
-
-
     public String getEvent() {
         return event;
     }
@@ -49,5 +47,31 @@ public class Event
 
     public String getFee() {
         return fee;
+    }
+
+    //setters
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
+
+    public void setBuyin(String buyin) {
+        this.buyin = buyin;
+    }
+
+    public void setFee(String fee) {
+        this.fee = fee;
     }
 }

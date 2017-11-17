@@ -92,6 +92,13 @@ public class HandRangeActivity extends Activity {
         db.close();
     }//end onCreate()
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        db.close();
+
+    }
+
 
     //get the preflop details from the intent.putExtra() in PreflopActivity
     //Once you have that info call

@@ -42,6 +42,7 @@ public class FindTournamentActivity extends ListActivity {
 
     //stores the data from the website
     MyCustomAdapter myAdapter;
+    //Event class contains strings for each part of the event. Ie country, date etc
     public ArrayList<Event> eventList = new ArrayList<Event>();
 
     //database stuff for writing what events user wants to add to their list
@@ -57,6 +58,7 @@ public class FindTournamentActivity extends ListActivity {
         //open database
         try {
             tournamentDBA.open();
+            Log.v("-----------------------","DATBASE OPEN CALL");
 
         }catch (SQLException e)
         {
@@ -76,18 +78,36 @@ public class FindTournamentActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id)
     {
-        Toast.makeText(getApplicationContext(),"ARRAYLIST " + eventList.get(position).getBuyin(),Toast.LENGTH_SHORT).show();
-        //tournamentDBA.insertEvent(ev)
+        Toast.makeText(getApplicationContext(),eventList.get(position).getEvent() + " has been added.",Toast.LENGTH_SHORT).show();
+
+        //Insert event user clicks into database
+        //String event, String country, String starts,String end_date,String buyin, String fee
+
+        try {
+            tournamentDBA.insertEvent(eventList.get(position).getEvent(),
+                    eventList.get(position).getCountry(),
+                    eventList.get(position).getDate(),
+                    eventList.get(position).getEnd_date(),
+                    eventList.get(position).getBuyin(),
+                    eventList.get(position).getFee());
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+
     }//end onListClickItem
 
 
     //Does the databse need to be closed once activity is changed?
+
     @Override
     public void onStop() {
         super.onStop();
         tournamentDBA.close();
 
     }
+
 
 
 
