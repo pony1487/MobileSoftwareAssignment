@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.SQLException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,24 +31,39 @@ import java.util.ArrayList;
  * Created by Ronan on 14/11/2017.
  * This uses the jsoup-1.11.1.jar
  *
- * 
+ *
  */
 
 public class FindTournamentActivity extends ListActivity {
 
+    //used while website is being parsed
     private ProgressDialog progressDialog;
     private String url = "https://www.pokernews.com/poker-tournaments/";
-    MyCustomAdapter myAdapter;
 
-    public ArrayList<String> eventList = new ArrayList<String>();
+    //stores the data from the website
+    MyCustomAdapter myAdapter;
+    public ArrayList<Event> eventList = new ArrayList<Event>();
+
+    //database stuff for writing what events user wants to add to their list
+    private TournamentDatabaseAccess tournamentDBA;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.find_tournament_activity);
 
+        //set up database
+        tournamentDBA = new TournamentDatabaseAccess(this);
 
+        //open database
+        try {
+            tournamentDBA.open();
 
-        //myAdapter = new MyCustomAdapter(FindTournamentActivity.this,R.id.event,eventList);
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        //set up list
         myAdapter = new MyCustomAdapter(this,R.layout.find_tournament_activity,eventList);
         setListAdapter(myAdapter);
 
@@ -54,12 +73,28 @@ public class FindTournamentActivity extends ListActivity {
 
     }//end onCreate()
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id)
+    {
+        Toast.makeText(getApplicationContext(),"ARRAYLIST " + eventList.get(position).getBuyin(),Toast.LENGTH_SHORT).show();
+        //tournamentDBA.insertEvent(ev)
+    }//end onListClickItem
+
+
+    //Does the databse need to be closed once activity is changed?
+    @Override
+    public void onStop() {
+        super.onStop();
+        tournamentDBA.close();
+
+    }
+
 
 
     //List
-    public class MyCustomAdapter extends ArrayAdapter<String>
+    public class MyCustomAdapter extends ArrayAdapter<Event>
     {
-        public MyCustomAdapter(Context context, int rowLayoutID, ArrayList<String> myData)
+        public MyCustomAdapter(Context context, int rowLayoutID, ArrayList<Event> myData)
         {
             super(context,rowLayoutID,myData);
         }
@@ -72,7 +107,7 @@ public class FindTournamentActivity extends ListActivity {
             row = inflater.inflate(R.layout.row, parent,false);
 
             TextView eventView = (TextView)row.findViewById(R.id.event);
-            eventView.setText(eventList.get(position));
+            eventView.setText(eventList.get(position).getEvent());
 
 
 
@@ -86,7 +121,7 @@ public class FindTournamentActivity extends ListActivity {
     //I used stackoverflow to get this working
     //AsyncTask takes parameters. The last is the return type. Jsoup parses the webpage, fills the arraylist with data and
     //we return that arraylist so we can update the ListActivity
-    private class ParseHTML extends AsyncTask<Void, Void, ArrayList<String>>
+    private class ParseHTML extends AsyncTask<Void, Void, ArrayList<Event>>
     {
 
 
@@ -104,7 +139,7 @@ public class FindTournamentActivity extends ListActivity {
         }
 
         @Override
-        protected ArrayList<String> doInBackground(Void... params) {
+        protected ArrayList<Event> doInBackground(Void... params) {
             try {
                 //Get Document object after parsing the html from given url.
                 doc = Jsoup.connect(url).get();
@@ -120,7 +155,22 @@ public class FindTournamentActivity extends ListActivity {
                 //loop through each row and out the 0th row(event name) into array list
                 for (Element row : rows) {
                     if (row.select("td").size() == 6) {
-                        eventList.add(row.select("td").get(0).text());
+
+                        Event e = new Event(row.select("td").get(0).text(),row.select("td").get(1).text(),
+                                row.select("td").get(2).text(),row.select("td").get(3).text(),
+                                row.select("td").get(4).text(),row.select("td").get(5).text());
+                        /*
+                        //Format String for pretty output and easier parsing later
+                        String temp = "";
+                        temp = row.select("td").get(0).text();//event
+                        temp += "\n " + row.select("td").get(1).text();//country
+                        temp += "\n " + row.select("td").get(2).text();//date
+                        temp += "\n " + row.select("td").get(3).text();// end date
+                        temp += "\n " + row.select("td").get(4).text();//buyin
+                        temp += "\n " + row.select("td").get(5).text();//fee
+                        */
+                        eventList.add(e);
+                        //eventList.add(row.select("td").get(0).text());
                     }
 
                 }//end for
@@ -143,7 +193,7 @@ public class FindTournamentActivity extends ListActivity {
 
 
         @Override
-        protected void onPostExecute(ArrayList<String> result) {
+        protected void onPostExecute(ArrayList<Event> result) {
             progressDialog.dismiss();
             //set the list Adapter
 
