@@ -6,6 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/*
+TO DO:
+
+-Format how the hand range is displayed after it is gotten from DB
+-Get appropriate data from the string that contains the parsed data from site
+-
+
+
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         //Menu Buttons
         Button calculateShoveButton = (Button)findViewById(R.id.calulateShoveButton);
         //Button practiceButton = (Button)findViewById(R.id.practiceButton);
-        //Button FindTournamentsButton = (Button)findViewById(R.id.FindTournamentsButton);
+        Button FindTournamentsButton = (Button)findViewById(R.id.FindTournamentsButton);
         //Button myTouramentsButton = (Button)findViewById(R.id.myTouramentsButton);
 
         //OnClickListeners and intents
@@ -24,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(MainActivity.this, PrelopActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        FindTournamentsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FindTournamentActivity.class);
                 startActivity(intent);
             }
         });
