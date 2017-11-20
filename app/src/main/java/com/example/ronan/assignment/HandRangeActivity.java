@@ -27,16 +27,7 @@ public class HandRangeActivity extends Activity {
     private DatabaseAccess db;
     private Cursor c;
 
-    //put these into handRange class. Ie have handRange.button etc. This is just for testing
-    private String BB = "";
-    private String sb = "";
-    private String btn = "";
-    private String co = "";
-    private String hj = "";
-    private String lj = "";
-    private String utg2 = "";
-    private String utg1 = "";
-    private String utg = "";
+    private String bigBlinds;
 
     private String resultFromCursor = "";
 
@@ -118,31 +109,35 @@ public class HandRangeActivity extends Activity {
             //Used for testing
             handRangeView = (TextView)findViewById(R.id.testHandRangeView);
 
-            String test = "";
+
+            String strWithNewLines ="";
             if (c.moveToFirst()) {
                 do {
                     //index is the column NOT the row
+
                     /*
-                    BB = c.getString(0);//BIG BLINS
-                    sb = c.getString(1);//SB
-                    btn = c.getString(2);//BTN
-                    co = c.getString(3);
-                    hj = c.getString(4);
-                    lj = c.getString(5);
-                    utg2 = c.getString(6);
-                    utg1 = c.getString(7);
-                    utg = c.getString(8);
+                    bigBlinds = c.getString(0);//BIG BLINS
+                    handRange.setSmallBlind(c.getString(1));//SB
+                    handRange.setButton(c.getString(2));
+                    handRange.setCutOff(c.getString(3));
+                    handRange.setLojack(c.getString(4));
+                    handRange.setHijack(c.getString(5));
+                    handRange.setUtg2(c.getString(6));
+                    handRange.setUtg1(c.getString(7));
+                    handRange.setUtg(c.getString(8));
                     */
-                    test = c.getString(position);
+                    resultFromCursor = c.getString(position);
+                    //format the string so each part of the hand range is on a new line
+                    strWithNewLines = resultFromCursor.replace(" ","\n");
+
 
 
                 } while (c.moveToNext());
             }
 
-            //resultFromCursor = "\tSTACK SIZE: " + BB + "BB's \n" + " " + sb + " " + btn + " " + co + " " + hj + "\n" + lj + " " + utg2 + " " + utg1 + " " + utg;
-            handRangeView.setText(test);
+            handRangeView.setText(strWithNewLines);
 
-            Log.v("Cursor Object", DatabaseUtils.dumpCursorToString(c));
+            Log.v("--------Formated String", strWithNewLines);
 
 
         }catch(SQLException e)

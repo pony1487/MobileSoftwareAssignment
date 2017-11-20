@@ -7,6 +7,7 @@ package com.example.ronan.assignment;
 
 public class Event
 {
+    private int eventID;
     private String event;
     private String country;
     private String date;
@@ -16,6 +17,7 @@ public class Event
 
     public Event(String event, String country,String date,String end_date,String buyin,String fee)
     {
+
         this.event = event;
         this.country = country;
         this.date = date;
@@ -25,6 +27,8 @@ public class Event
     }
 
     //getters
+    public int getEventID(){return eventID;}
+
     public String getEvent() {
         return event;
     }
@@ -50,10 +54,15 @@ public class Event
     }
 
     //setters
+    public void setEventID(int id) {
+        this.eventID = id;
+    }
 
     public void setEvent(String event) {
         this.event = event;
     }
+
+
 
     public void setCountry(String country) {
         this.country = country;

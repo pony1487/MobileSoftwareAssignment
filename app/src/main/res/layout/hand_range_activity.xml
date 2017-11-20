@@ -9,22 +9,35 @@
     tools:context="com.example.ronan.assignment.MainActivity">>
 
     <TextView
+        android:id="@+id/handRangeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "TESTING HandRangeActivity"/>
+        android:gravity="center"
+        android:text = "Recommended range to push all in with:"
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/testHandRangeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "TEST"/>
+        android:text = ""
+        android:textSize="20sp"/>
 
-    <Button
-        android:id="@+id/back_button"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="GO BACK"/>
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:gravity="center|bottom">
 
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="GO BACK" />
+
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

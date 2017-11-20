@@ -126,8 +126,14 @@ public class FindTournamentActivity extends ListActivity {
             LayoutInflater inflater = getLayoutInflater();
             row = inflater.inflate(R.layout.row, parent,false);
 
+            //Format the string and update Textview
             TextView eventView = (TextView)row.findViewById(R.id.event);
-            eventView.setText(eventList.get(position).getEvent());
+            String eventDetails = "Event Name: \n" + eventList.get(position).getEvent() +"\n"
+                    + "Start: " + eventList.get(position).getDate() + "\n"
+                    + "End: " + eventList.get(position).getEnd_date()+ "\n"
+                    + "Buyin: " + eventList.get(position).getBuyin() + "\n"
+                    + "Fee: " + eventList.get(position).getFee() + "\n";
+            eventView.setText(eventDetails);
 
 
 
