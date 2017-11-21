@@ -30,6 +30,8 @@ import java.util.ArrayList;
 /**
  * Created by Ronan on 14/11/2017.
  * This uses the jsoup-1.11.1.jar
+ * data got from this page. Viewed the source to get the tags I needed to parse
+ * https://www.pokernews.com/poker-tournaments/
  *
  *
  */
@@ -65,12 +67,15 @@ public class FindTournamentActivity extends ListActivity {
             e.printStackTrace();
         }
 
+
         //set up list
         myAdapter = new MyCustomAdapter(this,R.layout.find_tournament_activity,eventList);
         setListAdapter(myAdapter);
-
         //this calls the inner class below
         new ParseHTML().execute();
+
+
+
 
 
     }//end onCreate()
@@ -83,6 +88,7 @@ public class FindTournamentActivity extends ListActivity {
         //Insert event user clicks into database
         //String event, String country, String starts,String end_date,String buyin, String fee
 
+
         try {
             tournamentDBA.insertEvent(eventList.get(position).getEvent(),
                     eventList.get(position).getCountry(),
@@ -93,6 +99,7 @@ public class FindTournamentActivity extends ListActivity {
         }catch (SQLException e){
             e.printStackTrace();
         }
+
 
 
 
@@ -114,6 +121,7 @@ public class FindTournamentActivity extends ListActivity {
     //List
     public class MyCustomAdapter extends ArrayAdapter<Event>
     {
+
         public MyCustomAdapter(Context context, int rowLayoutID, ArrayList<Event> myData)
         {
             super(context,rowLayoutID,myData);
@@ -123,8 +131,10 @@ public class FindTournamentActivity extends ListActivity {
         {
             View row;
 
+
             LayoutInflater inflater = getLayoutInflater();
             row = inflater.inflate(R.layout.row, parent,false);
+
 
             //Format the string and update Textview
             TextView eventView = (TextView)row.findViewById(R.id.event);
@@ -135,11 +145,10 @@ public class FindTournamentActivity extends ListActivity {
                     + "Fee: " + eventList.get(position).getFee() + "\n";
             eventView.setText(eventDetails);
 
-
-
-
             return row;
         }//end getView
+
+
     }//end customAdapter
 
 
@@ -175,28 +184,30 @@ public class FindTournamentActivity extends ListActivity {
                 //this also get the entire table
                 Elements eventsTable = doc.select("table[class=eventsFromXml]");
 
-                //
+
+
                 Elements rows = eventsTable.get(0).select("tr");
 
                 //loop through each row and out the 0th row(event name) into array list
                 for (Element row : rows) {
-                    if (row.select("td").size() == 6) {
+
+
+
+                    //For seperating the Event from the tournaments in the event
+                    //Try if (row.select("td").size() == 6 && row.select("td").hasClass("title")
+                    if (row.select("td").size() == 6 && row.select("td").hasClass("title"))
+                    {
+                        //The address in the html is in the span tag
+                        String address = row.select("span").text();
+
+                        Log.v("------------address",address);
 
                         Event e = new Event(row.select("td").get(0).text(),row.select("td").get(1).text(),
                                 row.select("td").get(2).text(),row.select("td").get(3).text(),
                                 row.select("td").get(4).text(),row.select("td").get(5).text());
-                        /*
-                        //Format String for pretty output and easier parsing later
-                        String temp = "";
-                        temp = row.select("td").get(0).text();//event
-                        temp += "\n " + row.select("td").get(1).text();//country
-                        temp += "\n " + row.select("td").get(2).text();//date
-                        temp += "\n " + row.select("td").get(3).text();// end date
-                        temp += "\n " + row.select("td").get(4).text();//buyin
-                        temp += "\n " + row.select("td").get(5).text();//fee
-                        */
+
                         eventList.add(e);
-                        //eventList.add(row.select("td").get(0).text());
+
                     }
 
                 }//end for

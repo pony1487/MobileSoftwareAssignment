@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <TextView
-
-        android:id="@+id/user_event"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"/>
+        android:gravity="center|left">
+
+        <TextView
+
+            android:id="@+id/user_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="TEST"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventMap"
+            android:text="View Location"/>
+
+        <Button
+            android:id="@+id/deleteFromDatabaseButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:layout_alignParentBottom="true"/>
+    </LinearLayout>
+
+
+
+
 
 </LinearLayout>

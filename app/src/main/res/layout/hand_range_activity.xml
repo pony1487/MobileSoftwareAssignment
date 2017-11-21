@@ -6,7 +6,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center"
-    tools:context="com.example.ronan.assignment.MainActivity">>
+    tools:context="com.example.ronan.assignment.MainActivity"
+    android:background="@color/colorGrey">>
 
     <TextView
         android:id="@+id/handRangeTitle"
@@ -33,7 +34,9 @@
             android:id="@+id/back_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="GO BACK" />
+            android:text="GO BACK"
+            android:background="@color/buttonColor"
+            android:textColor="@color/whiteText"/>
 
 
 

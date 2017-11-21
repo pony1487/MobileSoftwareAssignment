@@ -14,6 +14,7 @@ public class Event
     private String end_date;
     private String buyin;
     private String fee;
+    private String address;
 
     public Event(String event, String country,String date,String end_date,String buyin,String fee)
     {

@@ -6,32 +6,78 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center"
+    android:background="@color/colorGrey"
+
     tools:context="com.example.ronan.assignment.MainActivity">
 
-
-
-    <Button
-        android:id="@+id/calulateShoveButton"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calulate Shove"/>
+        >
 
-    <Button
-        android:id="@+id/practiceButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Practice"/>
+        <Button
+            android:id="@+id/calulateShoveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Calulate Shove"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"
+            />
 
-    <Button
-        android:id="@+id/FindTournamentsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Find Tournaments"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/myTouramentsButton"
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Touraments"/>
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/practiceButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Practice"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/FindTournamentsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Find Tournaments"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/myTouramentsButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="My Touraments"
+            android:layout_weight="1"
+
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

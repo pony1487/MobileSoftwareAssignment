@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/colorGrey"
 
     tools:context="com.example.ronan.assignment.MainActivity">>
 
@@ -57,24 +58,32 @@
             android:id="@+id/utgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="UTG"/>
+            android:text="UTG"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
 
         <Button
             android:id="@+id/utg1Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="UTG+1"/>
+            android:text="UTG+1"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
 
         <Button
             android:id="@+id/utg2Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="UTG+2"/>
+            android:text="UTG+2"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
         <Button
             android:id="@+id/lojackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lojack"/>
+            android:text="Lojack"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
 
 
     </GridLayout>
@@ -87,24 +96,32 @@
             android:id="@+id/hijackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hijack"/>
+            android:text="Hijack"
+            android:background="@color/buttonColor"
+            android:textColor="@color/whiteText"/>
 
         <Button
             android:id="@+id/cuttoffButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CuttOff"/>
+            android:text="CuttOff"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
 
         <Button
             android:id="@+id/buttonButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"/>
+            android:text="Button"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
         <Button
             android:id="@+id/smallBlinfButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SmallBlind"/>
+            android:text="SmallBlind"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
 
 
     </GridLayout>
@@ -119,13 +136,17 @@
             android:id="@+id/HandRangeActivityButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Calculate"/>
+            android:text="Calculate"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
 
         <Button
             android:id="@+id/back_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="GO BACK" />
+            android:text="GO BACK"
+            android:background="@drawable/button_border"
+            android:textColor="@color/whiteText"/>
 
 
 

@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Menu Buttons
         Button calculateShoveButton = (Button)findViewById(R.id.calulateShoveButton);
-        //Button practiceButton = (Button)findViewById(R.id.practiceButton);
+        Button practiceButton = (Button)findViewById(R.id.practiceButton);
         Button FindTournamentsButton = (Button)findViewById(R.id.FindTournamentsButton);
         Button myTouramentsButton = (Button)findViewById(R.id.myTouramentsButton);
 
@@ -34,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(MainActivity.this, PrelopActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        practiceButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(MainActivity.this, PracticeSetupActivity.class);
                 startActivity(intent);
             }
         });

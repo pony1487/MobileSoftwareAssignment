@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.SQLException;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -119,51 +121,10 @@ public class MyTournamentsActivity extends ListActivity {
 
     }//end getEventsFromDatabase
 
+    //Not used Delete
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id)
     {
-        //There is a bug here. It will only delete the entry after clicking dialog twice it twice..
-        //if you get rid of the dialog box that asks user if they want to delete it works fine..
-        builder = new AlertDialog.Builder(this);
-        builder.setMessage("Delete?").setTitle("Delete from database?");
-
-        inflater = getLayoutInflater();
-
-        View customView = inflater.inflate(R.layout.my_tournaments_dialog, null);
-        TextView messageView = (TextView)customView.findViewById(R.id.eventName);
-
-        builder.setView(customView);
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                isClicked = true;
-            }
-        });
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
-            }
-        });
-
-        dialog = builder.create();
-        dialog.show();
-        if(isClicked) {
-            Toast.makeText(getApplicationContext(), "Yes clicked", Toast.LENGTH_SHORT).show();
-
-            try {
-                tournamentDBA.deleteEvent(userEventList.get(position).getEventID());
-
-                userEventList.remove(position);
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            isClicked = false;
-
-        }
-
-        mAdapter.notifyDataSetChanged();
 
     }//end onListClickItem
 
@@ -183,12 +144,43 @@ public class MyTournamentsActivity extends ListActivity {
             super(context,rowLayoutID,myData);
         }
 
-        public View getView(int position, View convertView, ViewGroup parent)
+        public View getView(final int position, View convertView, ViewGroup parent)
         {
             View row;
 
             LayoutInflater inflater = getLayoutInflater();
             row = inflater.inflate(R.layout.tournament_row, parent,false);
+
+            Button deleteButton = (Button)row.findViewById(R.id.deleteFromDatabaseButton);
+            Button eventMap = (Button)row.findViewById(R.id.eventMap);
+
+            eventMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MyTournamentsActivity.this, EventMapActivity.class);
+                    intent.putExtra("event_location",userEventList.get(position).getEventID());
+                    startActivity(intent);
+                }
+            });
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),userEventList.get(position).getEventID() + " has been deleted.",Toast.LENGTH_SHORT).show();
+
+                    //Doing this required position to made final as a parameter above
+                    try {
+                        tournamentDBA.deleteEvent(userEventList.get(position).getEventID());
+
+                        userEventList.remove(position);
+
+                        mAdapter.notifyDataSetChanged();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
             TextView userEventView = (TextView)row.findViewById(R.id.user_event);
             String eventDetails = "Event Name: \n" + userEventList.get(position).getEvent() +"\n"
